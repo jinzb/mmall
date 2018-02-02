@@ -1,0 +1,213 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.mmall.dao.ProductMapper" >
+  <resultMap id="BaseResultMap" type="com.mmall.pojo.Product" >
+    <constructor >
+      <idArg column="procode" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="catgcode" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="proname" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="subtitle" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="mainimg" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="detail" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="price" jdbcType="DECIMAL" javaType="java.math.BigDecimal" />
+      <arg column="stock" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="status" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="cretime" jdbcType="TIMESTAMP" javaType="java.util.Date" />
+      <arg column="updtime" jdbcType="TIMESTAMP" javaType="java.util.Date" />
+    </constructor>
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="com.mmall.pojo.Product" >
+    <constructor >
+      <idArg column="procode" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="catgcode" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="proname" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="subtitle" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="mainimg" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="detail" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="price" jdbcType="DECIMAL" javaType="java.math.BigDecimal" />
+      <arg column="stock" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="status" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="cretime" jdbcType="TIMESTAMP" javaType="java.util.Date" />
+      <arg column="updtime" jdbcType="TIMESTAMP" javaType="java.util.Date" />
+      <arg column="subimgs" jdbcType="LONGVARCHAR" javaType="java.lang.String" />
+    </constructor>
+  </resultMap>
+  <sql id="Base_Column_List" >
+    procode, catgcode, proname, subtitle, mainimg, detail, price, stock, status, cretime, 
+    updtime
+  </sql>
+  <sql id="Blob_Column_List" >
+    subimgs
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from dstproduct
+    where procode = #{procode,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from dstproduct
+    where procode = #{procode,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.mmall.pojo.Product" >
+    insert into dstproduct (procode, catgcode, proname, 
+      subtitle, mainimg, detail, 
+      price, stock, status, 
+      cretime, updtime, subimgs
+      )
+    values (#{procode,jdbcType=INTEGER}, #{catgcode,jdbcType=INTEGER}, #{proname,jdbcType=VARCHAR}, 
+      #{subtitle,jdbcType=VARCHAR}, #{mainimg,jdbcType=VARCHAR}, #{detail,jdbcType=VARCHAR}, 
+      #{price,jdbcType=DECIMAL}, #{stock,jdbcType=INTEGER}, #{status,jdbcType=INTEGER}, 
+      now(), now(), #{subimgs,jdbcType=LONGVARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.mmall.pojo.Product" >
+    insert into dstproduct
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="procode != null" >
+        procode,
+      </if>
+      <if test="catgcode != null" >
+        catgcode,
+      </if>
+      <if test="proname != null" >
+        proname,
+      </if>
+      <if test="subtitle != null" >
+        subtitle,
+      </if>
+      <if test="mainimg != null" >
+        mainimg,
+      </if>
+      <if test="detail != null" >
+        detail,
+      </if>
+      <if test="price != null" >
+        price,
+      </if>
+      <if test="stock != null" >
+        stock,
+      </if>
+      <if test="status != null" >
+        status,
+      </if>
+      <if test="cretime != null" >
+        cretime,
+      </if>
+      <if test="updtime != null" >
+        updtime,
+      </if>
+      <if test="subimgs != null" >
+        subimgs,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="procode != null" >
+        #{procode,jdbcType=INTEGER},
+      </if>
+      <if test="catgcode != null" >
+        #{catgcode,jdbcType=INTEGER},
+      </if>
+      <if test="proname != null" >
+        #{proname,jdbcType=VARCHAR},
+      </if>
+      <if test="subtitle != null" >
+        #{subtitle,jdbcType=VARCHAR},
+      </if>
+      <if test="mainimg != null" >
+        #{mainimg,jdbcType=VARCHAR},
+      </if>
+      <if test="detail != null" >
+        #{detail,jdbcType=VARCHAR},
+      </if>
+      <if test="price != null" >
+        #{price,jdbcType=DECIMAL},
+      </if>
+      <if test="stock != null" >
+        #{stock,jdbcType=INTEGER},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=INTEGER},
+      </if>
+      <if test="cretime != null" >
+        now(),
+      </if>
+      <if test="updtime != null" >
+        now(),
+      </if>
+      <if test="subimgs != null" >
+        #{subimgs,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.mmall.pojo.Product" >
+    update dstproduct
+    <set >
+      <if test="catgcode != null" >
+        catgcode = #{catgcode,jdbcType=INTEGER},
+      </if>
+      <if test="proname != null" >
+        proname = #{proname,jdbcType=VARCHAR},
+      </if>
+      <if test="subtitle != null" >
+        subtitle = #{subtitle,jdbcType=VARCHAR},
+      </if>
+      <if test="mainimg != null" >
+        mainimg = #{mainimg,jdbcType=VARCHAR},
+      </if>
+      <if test="detail != null" >
+        detail = #{detail,jdbcType=VARCHAR},
+      </if>
+      <if test="price != null" >
+        price = #{price,jdbcType=DECIMAL},
+      </if>
+      <if test="stock != null" >
+        stock = #{stock,jdbcType=INTEGER},
+      </if>
+      <if test="status != null" >
+        status = #{status,jdbcType=INTEGER},
+      </if>
+      <if test="cretime != null" >
+        cretime = #{cretime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updtime != null" >
+        updtime = now(),
+      </if>
+      <if test="subimgs != null" >
+        subimgs = #{subimgs,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where procode = #{procode,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.mmall.pojo.Product" >
+    update dstproduct
+    set catgcode = #{catgcode,jdbcType=INTEGER},
+      proname = #{proname,jdbcType=VARCHAR},
+      subtitle = #{subtitle,jdbcType=VARCHAR},
+      mainimg = #{mainimg,jdbcType=VARCHAR},
+      detail = #{detail,jdbcType=VARCHAR},
+      price = #{price,jdbcType=DECIMAL},
+      stock = #{stock,jdbcType=INTEGER},
+      status = #{status,jdbcType=INTEGER},
+      cretime = #{cretime,jdbcType=TIMESTAMP},
+      updtime = now(),
+      subimgs = #{subimgs,jdbcType=LONGVARCHAR}
+    where procode = #{procode,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.mmall.pojo.Product" >
+    update dstproduct
+    set catgcode = #{catgcode,jdbcType=INTEGER},
+      proname = #{proname,jdbcType=VARCHAR},
+      subtitle = #{subtitle,jdbcType=VARCHAR},
+      mainimg = #{mainimg,jdbcType=VARCHAR},
+      detail = #{detail,jdbcType=VARCHAR},
+      price = #{price,jdbcType=DECIMAL},
+      stock = #{stock,jdbcType=INTEGER},
+      status = #{status,jdbcType=INTEGER},
+      cretime = #{cretime,jdbcType=TIMESTAMP},
+      updtime = now()
+    where procode = #{procode,jdbcType=INTEGER}
+  </update>
+</mapper>

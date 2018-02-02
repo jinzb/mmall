@@ -1,0 +1,201 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.mmall.dao.OrderMapper" >
+  <resultMap id="BaseResultMap" type="com.mmall.pojo.Order" >
+    <constructor >
+      <idArg column="ordercode" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="orderno" jdbcType="BIGINT" javaType="java.lang.Long" />
+      <arg column="usrcode" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="shipcode" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="actpay" jdbcType="DECIMAL" javaType="java.math.BigDecimal" />
+      <arg column="paytype" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="postage" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="status" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="paytime" jdbcType="TIMESTAMP" javaType="java.util.Date" />
+      <arg column="sendtime" jdbcType="TIMESTAMP" javaType="java.util.Date" />
+      <arg column="endtime" jdbcType="TIMESTAMP" javaType="java.util.Date" />
+      <arg column="closetime" jdbcType="TIMESTAMP" javaType="java.util.Date" />
+      <arg column="cretime" jdbcType="TIMESTAMP" javaType="java.util.Date" />
+      <arg column="updtime" jdbcType="TIMESTAMP" javaType="java.util.Date" />
+    </constructor>
+  </resultMap>
+  <sql id="Base_Column_List" >
+    ordercode, orderno, usrcode, shipcode, actpay, paytype, postage, status, paytime, 
+    sendtime, endtime, closetime, cretime, updtime
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from dstorder
+    where ordercode = #{ordercode,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from dstorder
+    where ordercode = #{ordercode,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.mmall.pojo.Order" >
+    insert into dstorder (ordercode, orderno, usrcode, 
+      shipcode, actpay, paytype, 
+      postage, status, paytime, 
+      sendtime, endtime, closetime, 
+      cretime, updtime)
+    values (#{ordercode,jdbcType=INTEGER}, #{orderno,jdbcType=BIGINT}, #{usrcode,jdbcType=INTEGER}, 
+      #{shipcode,jdbcType=INTEGER}, #{actpay,jdbcType=DECIMAL}, #{paytype,jdbcType=INTEGER}, 
+      #{postage,jdbcType=INTEGER}, #{status,jdbcType=INTEGER}, #{paytime,jdbcType=TIMESTAMP}, 
+      #{sendtime,jdbcType=TIMESTAMP}, #{endtime,jdbcType=TIMESTAMP}, #{closetime,jdbcType=TIMESTAMP}, 
+      now(), now())
+  </insert>
+  <insert id="insertSelective" parameterType="com.mmall.pojo.Order" >
+    insert into dstorder
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="ordercode != null" >
+        ordercode,
+      </if>
+      <if test="orderno != null" >
+        orderno,
+      </if>
+      <if test="usrcode != null" >
+        usrcode,
+      </if>
+      <if test="shipcode != null" >
+        shipcode,
+      </if>
+      <if test="actpay != null" >
+        actpay,
+      </if>
+      <if test="paytype != null" >
+        paytype,
+      </if>
+      <if test="postage != null" >
+        postage,
+      </if>
+      <if test="status != null" >
+        status,
+      </if>
+      <if test="paytime != null" >
+        paytime,
+      </if>
+      <if test="sendtime != null" >
+        sendtime,
+      </if>
+      <if test="endtime != null" >
+        endtime,
+      </if>
+      <if test="closetime != null" >
+        closetime,
+      </if>
+      <if test="cretime != null" >
+        cretime,
+      </if>
+      <if test="updtime != null" >
+        updtime,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="ordercode != null" >
+        #{ordercode,jdbcType=INTEGER},
+      </if>
+      <if test="orderno != null" >
+        #{orderno,jdbcType=BIGINT},
+      </if>
+      <if test="usrcode != null" >
+        #{usrcode,jdbcType=INTEGER},
+      </if>
+      <if test="shipcode != null" >
+        #{shipcode,jdbcType=INTEGER},
+      </if>
+      <if test="actpay != null" >
+        #{actpay,jdbcType=DECIMAL},
+      </if>
+      <if test="paytype != null" >
+        #{paytype,jdbcType=INTEGER},
+      </if>
+      <if test="postage != null" >
+        #{postage,jdbcType=INTEGER},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=INTEGER},
+      </if>
+      <if test="paytime != null" >
+        #{paytime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="sendtime != null" >
+        #{sendtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="endtime != null" >
+        #{endtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="closetime != null" >
+        #{closetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="cretime != null" >
+        now(),
+      </if>
+      <if test="updtime != null" >
+        now(),
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.mmall.pojo.Order" >
+    update dstorder
+    <set >
+      <if test="orderno != null" >
+        orderno = #{orderno,jdbcType=BIGINT},
+      </if>
+      <if test="usrcode != null" >
+        usrcode = #{usrcode,jdbcType=INTEGER},
+      </if>
+      <if test="shipcode != null" >
+        shipcode = #{shipcode,jdbcType=INTEGER},
+      </if>
+      <if test="actpay != null" >
+        actpay = #{actpay,jdbcType=DECIMAL},
+      </if>
+      <if test="paytype != null" >
+        paytype = #{paytype,jdbcType=INTEGER},
+      </if>
+      <if test="postage != null" >
+        postage = #{postage,jdbcType=INTEGER},
+      </if>
+      <if test="status != null" >
+        status = #{status,jdbcType=INTEGER},
+      </if>
+      <if test="paytime != null" >
+        paytime = #{paytime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="sendtime != null" >
+        sendtime = #{sendtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="endtime != null" >
+        endtime = #{endtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="closetime != null" >
+        closetime = #{closetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="cretime != null" >
+        cretime = #{cretime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updtime != null" >
+        updtime = now(),
+      </if>
+    </set>
+    where ordercode = #{ordercode,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.mmall.pojo.Order" >
+    update dstorder
+    set orderno = #{orderno,jdbcType=BIGINT},
+      usrcode = #{usrcode,jdbcType=INTEGER},
+      shipcode = #{shipcode,jdbcType=INTEGER},
+      actpay = #{actpay,jdbcType=DECIMAL},
+      paytype = #{paytype,jdbcType=INTEGER},
+      postage = #{postage,jdbcType=INTEGER},
+      status = #{status,jdbcType=INTEGER},
+      paytime = #{paytime,jdbcType=TIMESTAMP},
+      sendtime = #{sendtime,jdbcType=TIMESTAMP},
+      endtime = #{endtime,jdbcType=TIMESTAMP},
+      closetime = #{closetime,jdbcType=TIMESTAMP},
+      cretime = #{cretime,jdbcType=TIMESTAMP},
+      updtime = now()
+    where ordercode = #{ordercode,jdbcType=INTEGER}
+  </update>
+</mapper>

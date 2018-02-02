@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.mmall.dao.PayInfoMapper" >
+  <resultMap id="BaseResultMap" type="com.mmall.pojo.PayInfo" >
+    <constructor >
+      <idArg column="paycode" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="usrcode" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="orderno" jdbcType="BIGINT" javaType="java.lang.Long" />
+      <arg column="paytype" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="paynumb" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="paystatus" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="cretime" jdbcType="TIMESTAMP" javaType="java.util.Date" />
+      <arg column="updtime" jdbcType="TIMESTAMP" javaType="java.util.Date" />
+    </constructor>
+  </resultMap>
+  <sql id="Base_Column_List" >
+    paycode, usrcode, orderno, paytype, paynumb, paystatus, cretime, updtime
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from dstpayinfo
+    where paycode = #{paycode,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from dstpayinfo
+    where paycode = #{paycode,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.mmall.pojo.PayInfo" >
+    insert into dstpayinfo (paycode, usrcode, orderno, 
+      paytype, paynumb, paystatus, 
+      cretime, updtime)
+    values (#{paycode,jdbcType=INTEGER}, #{usrcode,jdbcType=INTEGER}, #{orderno,jdbcType=BIGINT}, 
+      #{paytype,jdbcType=INTEGER}, #{paynumb,jdbcType=VARCHAR}, #{paystatus,jdbcType=VARCHAR}, 
+      now(), now())
+  </insert>
+  <insert id="insertSelective" parameterType="com.mmall.pojo.PayInfo" >
+    insert into dstpayinfo
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="paycode != null" >
+        paycode,
+      </if>
+      <if test="usrcode != null" >
+        usrcode,
+      </if>
+      <if test="orderno != null" >
+        orderno,
+      </if>
+      <if test="paytype != null" >
+        paytype,
+      </if>
+      <if test="paynumb != null" >
+        paynumb,
+      </if>
+      <if test="paystatus != null" >
+        paystatus,
+      </if>
+      <if test="cretime != null" >
+        cretime,
+      </if>
+      <if test="updtime != null" >
+        updtime,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="paycode != null" >
+        #{paycode,jdbcType=INTEGER},
+      </if>
+      <if test="usrcode != null" >
+        #{usrcode,jdbcType=INTEGER},
+      </if>
+      <if test="orderno != null" >
+        #{orderno,jdbcType=BIGINT},
+      </if>
+      <if test="paytype != null" >
+        #{paytype,jdbcType=INTEGER},
+      </if>
+      <if test="paynumb != null" >
+        #{paynumb,jdbcType=VARCHAR},
+      </if>
+      <if test="paystatus != null" >
+        #{paystatus,jdbcType=VARCHAR},
+      </if>
+      <if test="cretime != null" >
+        now(),
+      </if>
+      <if test="updtime != null" >
+        now(),
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.mmall.pojo.PayInfo" >
+    update dstpayinfo
+    <set >
+      <if test="usrcode != null" >
+        usrcode = #{usrcode,jdbcType=INTEGER},
+      </if>
+      <if test="orderno != null" >
+        orderno = #{orderno,jdbcType=BIGINT},
+      </if>
+      <if test="paytype != null" >
+        paytype = #{paytype,jdbcType=INTEGER},
+      </if>
+      <if test="paynumb != null" >
+        paynumb = #{paynumb,jdbcType=VARCHAR},
+      </if>
+      <if test="paystatus != null" >
+        paystatus = #{paystatus,jdbcType=VARCHAR},
+      </if>
+      <if test="cretime != null" >
+        cretime = #{cretime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updtime != null" >
+        updtime = now(),
+      </if>
+    </set>
+    where paycode = #{paycode,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.mmall.pojo.PayInfo" >
+    update dstpayinfo
+    set usrcode = #{usrcode,jdbcType=INTEGER},
+      orderno = #{orderno,jdbcType=BIGINT},
+      paytype = #{paytype,jdbcType=INTEGER},
+      paynumb = #{paynumb,jdbcType=VARCHAR},
+      paystatus = #{paystatus,jdbcType=VARCHAR},
+      cretime = #{cretime,jdbcType=TIMESTAMP},
+      updtime = now()
+    where paycode = #{paycode,jdbcType=INTEGER}
+  </update>
+</mapper>

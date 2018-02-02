@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.mmall.dao.OrderItemMapper" >
+  <resultMap id="BaseResultMap" type="com.mmall.pojo.OrderItem" >
+    <constructor >
+      <idArg column="ordercode" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="usrcode" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="orderno" jdbcType="BIGINT" javaType="java.lang.Long" />
+      <arg column="procode" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="proname" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="proimg" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="currprice" jdbcType="DECIMAL" javaType="java.math.BigDecimal" />
+      <arg column="quantity" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="totalprice" jdbcType="DECIMAL" javaType="java.math.BigDecimal" />
+      <arg column="cretime" jdbcType="TIMESTAMP" javaType="java.util.Date" />
+      <arg column="updtime" jdbcType="TIMESTAMP" javaType="java.util.Date" />
+    </constructor>
+  </resultMap>
+  <sql id="Base_Column_List" >
+    ordercode, usrcode, orderno, procode, proname, proimg, currprice, quantity, totalprice, 
+    cretime, updtime
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from dstorderitem
+    where ordercode = #{ordercode,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from dstorderitem
+    where ordercode = #{ordercode,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.mmall.pojo.OrderItem" >
+    insert into dstorderitem (ordercode, usrcode, orderno, 
+      procode, proname, proimg, 
+      currprice, quantity, totalprice, 
+      cretime, updtime)
+    values (#{ordercode,jdbcType=INTEGER}, #{usrcode,jdbcType=INTEGER}, #{orderno,jdbcType=BIGINT}, 
+      #{procode,jdbcType=INTEGER}, #{proname,jdbcType=VARCHAR}, #{proimg,jdbcType=VARCHAR}, 
+      #{currprice,jdbcType=DECIMAL}, #{quantity,jdbcType=INTEGER}, #{totalprice,jdbcType=DECIMAL}, 
+      now(), now())
+  </insert>
+  <insert id="insertSelective" parameterType="com.mmall.pojo.OrderItem" >
+    insert into dstorderitem
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="ordercode != null" >
+        ordercode,
+      </if>
+      <if test="usrcode != null" >
+        usrcode,
+      </if>
+      <if test="orderno != null" >
+        orderno,
+      </if>
+      <if test="procode != null" >
+        procode,
+      </if>
+      <if test="proname != null" >
+        proname,
+      </if>
+      <if test="proimg != null" >
+        proimg,
+      </if>
+      <if test="currprice != null" >
+        currprice,
+      </if>
+      <if test="quantity != null" >
+        quantity,
+      </if>
+      <if test="totalprice != null" >
+        totalprice,
+      </if>
+      <if test="cretime != null" >
+        cretime,
+      </if>
+      <if test="updtime != null" >
+        updtime,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="ordercode != null" >
+        #{ordercode,jdbcType=INTEGER},
+      </if>
+      <if test="usrcode != null" >
+        #{usrcode,jdbcType=INTEGER},
+      </if>
+      <if test="orderno != null" >
+        #{orderno,jdbcType=BIGINT},
+      </if>
+      <if test="procode != null" >
+        #{procode,jdbcType=INTEGER},
+      </if>
+      <if test="proname != null" >
+        #{proname,jdbcType=VARCHAR},
+      </if>
+      <if test="proimg != null" >
+        #{proimg,jdbcType=VARCHAR},
+      </if>
+      <if test="currprice != null" >
+        #{currprice,jdbcType=DECIMAL},
+      </if>
+      <if test="quantity != null" >
+        #{quantity,jdbcType=INTEGER},
+      </if>
+      <if test="totalprice != null" >
+        #{totalprice,jdbcType=DECIMAL},
+      </if>
+      <if test="cretime != null" >
+        now(),
+      </if>
+      <if test="updtime != null" >
+        now(),
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.mmall.pojo.OrderItem" >
+    update dstorderitem
+    <set >
+      <if test="usrcode != null" >
+        usrcode = #{usrcode,jdbcType=INTEGER},
+      </if>
+      <if test="orderno != null" >
+        orderno = #{orderno,jdbcType=BIGINT},
+      </if>
+      <if test="procode != null" >
+        procode = #{procode,jdbcType=INTEGER},
+      </if>
+      <if test="proname != null" >
+        proname = #{proname,jdbcType=VARCHAR},
+      </if>
+      <if test="proimg != null" >
+        proimg = #{proimg,jdbcType=VARCHAR},
+      </if>
+      <if test="currprice != null" >
+        currprice = #{currprice,jdbcType=DECIMAL},
+      </if>
+      <if test="quantity != null" >
+        quantity = #{quantity,jdbcType=INTEGER},
+      </if>
+      <if test="totalprice != null" >
+        totalprice = #{totalprice,jdbcType=DECIMAL},
+      </if>
+      <if test="cretime != null" >
+        cretime = #{cretime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updtime != null" >
+        updtime = now(),
+      </if>
+    </set>
+    where ordercode = #{ordercode,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.mmall.pojo.OrderItem" >
+    update dstorderitem
+    set usrcode = #{usrcode,jdbcType=INTEGER},
+      orderno = #{orderno,jdbcType=BIGINT},
+      procode = #{procode,jdbcType=INTEGER},
+      proname = #{proname,jdbcType=VARCHAR},
+      proimg = #{proimg,jdbcType=VARCHAR},
+      currprice = #{currprice,jdbcType=DECIMAL},
+      quantity = #{quantity,jdbcType=INTEGER},
+      totalprice = #{totalprice,jdbcType=DECIMAL},
+      cretime = #{cretime,jdbcType=TIMESTAMP},
+      updtime = now()
+    where ordercode = #{ordercode,jdbcType=INTEGER}
+  </update>
+</mapper>
